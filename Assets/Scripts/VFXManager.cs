@@ -25,11 +25,11 @@ public class VFXManager : SingletonMonoBehaviour<VFXManager>
     /// <summary>
     /// This is called when the hammer hits the rail.
     /// </summary>
-    /// <param name="rail">Hit rail</param>
+    /// <param name="railPos">Hit rail</param>
     /// <param name="result">Great, Good, or Miss</param>
-    public void RequestHitEffect(Transform rail, HitType result)
+    public void RequestHitEffect(Transform railPos, HitType result)
     {
-        GameObject vfx = Instantiate(hitEffect, rail);
+        Instantiate(hitEffect, railPos);
 
         ParticleSystem ps = hitEffect.GetComponent<ParticleSystem>();
         if (ps == null)

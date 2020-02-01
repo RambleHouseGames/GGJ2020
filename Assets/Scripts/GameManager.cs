@@ -144,17 +144,21 @@ public class GameManager : MonoBehaviour {
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, left);
 
+        Transform tr;   //YUUKI
         if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
+            RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
+            tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI
         }
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
+            RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
+            tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI
         }
+        VFXManager.Instance.RequestHitEffect(tr, hitType); //YUUKI
     }
-
+  
     private void HandleHitType(HitType hitType) {
         switch (hitType) {
             case HitType.Great:
