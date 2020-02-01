@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     private List<RailSet> activeRails = new List<RailSet>();
     private bool gameStarted = false;
     private float startTime;
-    private const float PERFECT_DISTANCE = 0.1f;
+    private const float PERFECT_DISTANCE = 0.09f;
     private const float GOOD_DISTANCE = 0.2f;
     private const int RAIL_LENGTH = 50;
     private const int ON_BEAT_TIE_INDEX = 2;
@@ -56,20 +56,26 @@ public class GameManager : MonoBehaviour {
     private const float SECONDS_PER_BEAT = 1f / BEATS_PER_SECOND;
     private int railIndex = 0;
     IEnumerator Start() {
+        Health = 100;
+        Score = 0;
         SessionInfo.Reset();
         currentSong = SongParser.ParseSong(song1);
         for (int i = 0; i < RAIL_LENGTH; i++) {
             activeRails.Add(AddRail(railIndex, currentSong[railIndex]));
             railIndex++;
         }
+        mainSource.PlayDelayed(0.9f);
         yield return new WaitForSeconds(1f);
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        mainSource.time = 0f;
+#endif
         startTime = Time.time;
         gameStarted = true;
         for (int i = ON_BEAT_TIE_INDEX; i < activeRails.Count; i++) {
             float centerTime = startTime + GetTimeForIndex(i);
             activeRails[i].time = centerTime;
         }
-        mainSource.Play();
+        yield return new WaitForSeconds(1f);
     }
 
     private static float GetTimeForIndex(int i) {
@@ -140,9 +146,12 @@ public class GameManager : MonoBehaviour {
 
         if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-        } else {
+            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
+        }
+        else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
+            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
         }
     }
 
@@ -154,9 +163,12 @@ public class GameManager : MonoBehaviour {
 
         if(hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-        } else {
+            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
+        }
+        else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
+            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
         }
     }
 
