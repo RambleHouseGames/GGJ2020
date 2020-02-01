@@ -8,8 +8,8 @@ public class ScoreManager : MonoBehaviour
     public List<GameObject> nameTextList = new List<GameObject>();      // NameTextオブジェクトリスト 
 
     public List<Person> personList = new List<Person>();                // パーソンリスト
-    public int[] scoreForDebug = new int[10];                           // For Debug
-    public string[] nameForDebug = new string[10];
+    //public int[] scoreForDebug = new int[10];                           // For Debug
+    //public string[] nameForDebug = new string[10];
     public int num = 0;
 
     public struct Person
@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour
         //パーソンリストに今回のパーソンを追加
         personList.Add(p);
 
-        //降順にソート
+        //スコア降順にソート
         personList.Sort((a, b) => b.score - a.score);
 
         //ソートしたデータを保存する
@@ -65,9 +65,7 @@ public class ScoreManager : MonoBehaviour
                         PlayerPrefs.SetInt("Score5", personList[i].score);
                         PlayerPrefs.SetString("Name5", personList[i].name);
                         break;
-
                 }
-
                 //スコアを保存
                 PlayerPrefs.Save();
             }
@@ -81,7 +79,7 @@ public class ScoreManager : MonoBehaviour
         AddRunking(PlayerPrefs.GetInt("Score",0) , PlayerPrefs.GetString("Name" , "no name"));
 
         // 引数で指定したキーを削除する
-        PlayerPrefs.DeleteKey("Store");
+        PlayerPrefs.DeleteKey("Score");
         PlayerPrefs.DeleteKey("Name");
 
         //PlayerPrefs.SetInt("Score",0);
@@ -134,8 +132,8 @@ public class ScoreManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            AddRunking(scoreForDebug[num] , nameForDebug[num]);
-            num++;
+            //AddRunking(scoreForDebug[num] , nameForDebug[num]);
+            //num++;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
