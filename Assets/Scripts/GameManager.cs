@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     private List<RailSet> activeRails = new List<RailSet>();
     private bool gameStarted = false;
     private float startTime;
-    private const float PERFECT_DISTANCE = 0.1f;
+    private const float PERFECT_DISTANCE = 0.09f;
     private const float GOOD_DISTANCE = 0.2f;
     private const int RAIL_LENGTH = 50;
     private const int ON_BEAT_TIE_INDEX = 2;
@@ -64,14 +64,15 @@ public class GameManager : MonoBehaviour {
             activeRails.Add(AddRail(railIndex, currentSong[railIndex]));
             railIndex++;
         }
+        mainSource.PlayDelayed(0.9f);
         yield return new WaitForSeconds(1f);
+
         startTime = Time.time;
         gameStarted = true;
         for (int i = ON_BEAT_TIE_INDEX; i < activeRails.Count; i++) {
             float centerTime = startTime + GetTimeForIndex(i);
             activeRails[i].time = centerTime;
         }
-        mainSource.Play();
     }
 
     private static float GetTimeForIndex(int i) {
