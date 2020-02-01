@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     private List<RailSet> activeRails = new List<RailSet>();
     private bool gameStarted = false;
     private float startTime;
-    private const float PERFECT_DISTANCE = 0.12f;
+    private const float PERFECT_DISTANCE = 0.1f;
     private const float GOOD_DISTANCE = 0.2f;
     private const int RAIL_LENGTH = 50;
     private const int ON_BEAT_TIE_INDEX = 2;
