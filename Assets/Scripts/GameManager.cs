@@ -14,6 +14,16 @@ public class GameManager : MonoBehaviour {
     public AudioSource mainSource;
     public TextAsset song1;
     private BeatType[] currentSong;
+    private BeatType GetBeatOfCurrentSong(int beatIndex) {
+        if(beatIndex < currentSong.Length) {
+            return currentSong[beatIndex];
+        } else {
+            GoToResultScreen();
+            return BeatType.Normal;
+        }
+    }
+
+    public Image fadeImage;
 
     public Transform cameraT;
     public HitTypeUI hitTypeUI;
@@ -37,7 +47,7 @@ public class GameManager : MonoBehaviour {
         set {
             health = value;
             if(health <= 0) {
-                SceneManager.LoadScene("Result");
+                GoToResultScreen();
             }
             healthText.text = "Health: " + health.ToString();
         }
@@ -60,7 +70,7 @@ public class GameManager : MonoBehaviour {
         SessionInfo.Reset();
         currentSong = SongParser.ParseSong(song1);
         for (int i = 0; i < RAIL_LENGTH; i++) {
-            activeRails.Add(AddRail(railIndex, currentSong[railIndex]));
+            activeRails.Add(AddRail(railIndex, GetBeatOfCurrentSong(railIndex)));
             railIndex++;
         }
         mainSource.PlayDelayed(0.9f);
@@ -108,7 +118,7 @@ public class GameManager : MonoBehaviour {
                 GetPoolForBeatType(railToRemove.beatType).DisposeRail(railToRemove.rail);
                 activeRails.RemoveAt(0);
 
-                RailSet newRail = AddRail(railIndex, currentSong[railIndex]);
+                RailSet newRail = AddRail(railIndex, GetBeatOfCurrentSong(railIndex));
                 float centerTime = startTime + GetTimeForIndex(railIndex);
                 newRail.time = centerTime;
                 activeRails.Add(newRail);
@@ -203,8 +213,23 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void OnGUI() {
-        GUI.Label(new Rect(0,0, 100, 100), Time.time.ToString());
+    private Coroutine exitRoutine = null;
+    private void GoToResultScreen() {
+        if (exitRoutine == null) {
+            Color startColor = fadeImage.color;
+            Color endColor = Color.white;
+            exitRoutine = this.CreateAnimationRoutine(
+                0.666f,
+                delegate (float progress) {
+                    float easedProgress = Easing.easeInOutSine(0, 1, progress);
+                    fadeImage.color = Color.Lerp(startColor, endColor, easedProgress);
+                },
+                delegate {
+                    SceneManager.LoadScene("Result");
+                    exitRoutine = null;
+                }
+            );
+        }
     }
 
     private static HitType HitTypeForTime(float timeDiff) {
