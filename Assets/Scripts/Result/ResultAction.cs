@@ -101,6 +101,9 @@ public class ResultAction : MonoBehaviour
     public void Titlename()
     {
         buttonA.SetActive(false);
+        PlayerPrefs.SetInt("Score", Score);
+        PlayerPrefs.SetString("Name", PlayerNameTextN.text);
+        PlayerPrefs.Save();
         SceneManager.LoadScene("Title");
     }
 
