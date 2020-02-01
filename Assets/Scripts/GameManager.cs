@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
     private float startTime;
     private const float PERFECT_DISTANCE = 0.09f;
     private const float GOOD_DISTANCE = 0.2f;
-    private const int RAIL_LENGTH = 50;
+    private const int RAIL_LENGTH = 45;
     private const int ON_BEAT_TIE_INDEX = 2;
     private const float BPM = 720;
     private const float BEATS_PER_SECOND = BPM / 60f;
@@ -100,10 +100,22 @@ public class GameManager : MonoBehaviour {
         newRail.rail.transform.position = pos;
         if (Random.Range(0f, 1f) > 0.88f) {
             GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
+            newRail.decoration = newDecoration;
             float x = Random.Range(-4f, 4f);
             x += (x > 0) ? 2f : -2f;
-            newDecoration.transform.position = pos.SetX(x);
-            newRail.decoration = newDecoration;
+            Transform decT = newDecoration.transform;
+            decT.position = pos.SetX(x);
+            if (index > RAIL_LENGTH) {
+                Vector3 startScale = Vector3.zero;
+                Vector3 endScale = new Vector3(0.14f, 0.14f, 0.14f);
+                decT.localScale = startScale;
+                this.CreateAnimationRoutine(
+                    1f,
+                    delegate (float progress) {
+                        decT.localScale = Vector3.Lerp(startScale, endScale, progress);
+                    }
+                );
+            }
         }
         return newRail;
     }
