@@ -93,11 +93,11 @@ public class GameManager : MonoBehaviour {
                 RailSet railToRemove = activeRails[0];
                 if(railToRemove.beatType == BeatType.Normal) {
                     if (railToRemove.wasHit) {
-                        Health -= 10;
+                        Health -= 5;
                     }
                 } else {
                     if (!railToRemove.wasHit) {
-                        Health -= 10;
+                        Health -= 5;
                     }
                 }
                 GetPoolForBeatType(railToRemove.beatType).DisposeRail(railToRemove.rail);
