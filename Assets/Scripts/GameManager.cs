@@ -47,13 +47,14 @@ public class GameManager : MonoBehaviour {
     private List<RailSet> activeRails = new List<RailSet>();
     private bool gameStarted = false;
     private float startTime;
-    private const float PERFECT_DISTANCE = 0.1f;
+    private const float PERFECT_DISTANCE = 0.09f;
     private const float GOOD_DISTANCE = 0.2f;
     private const int RAIL_LENGTH = 50;
     private const int ON_BEAT_TIE_INDEX = 2;
     private const float BPM = 720;
     private const float BEATS_PER_SECOND = BPM / 60f;
     private const float SECONDS_PER_BEAT = 1f / BEATS_PER_SECOND;
+    private const float SOUND_ADJUST = 0.1f;
     private int railIndex = 0;
     IEnumerator Start() {
         Health = 100;
@@ -64,14 +65,16 @@ public class GameManager : MonoBehaviour {
             activeRails.Add(AddRail(railIndex, currentSong[railIndex]));
             railIndex++;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f - SOUND_ADJUST);
+        mainSource.Play();
+        yield return new WaitForSeconds(SOUND_ADJUST);
+
         startTime = Time.time;
         gameStarted = true;
         for (int i = ON_BEAT_TIE_INDEX; i < activeRails.Count; i++) {
             float centerTime = startTime + GetTimeForIndex(i);
             activeRails[i].time = centerTime;
         }
-        mainSource.Play();
     }
 
     private static float GetTimeForIndex(int i) {
