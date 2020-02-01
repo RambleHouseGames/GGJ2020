@@ -80,6 +80,14 @@ public class ScoreManager : MonoBehaviour
         //Resultから戻ってきてハイスコア更新した場合、そのデータを入れる
         AddRunking(PlayerPrefs.GetInt("Score",0) , PlayerPrefs.GetString("Name" , "no name"));
 
+        // 引数で指定したキーを削除する
+        PlayerPrefs.DeleteKey("Store");
+        PlayerPrefs.DeleteKey("Name");
+
+        //PlayerPrefs.SetInt("Score",0);
+        //PlayerPrefs.SetString("Name", "no name");
+        //PlayerPrefs.Save();
+
         //PlayerPrefsのScoreデータをpersonList.scoreに入れる
         for (int i = 0; i < 5; i++)
         {
