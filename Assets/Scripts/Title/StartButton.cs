@@ -20,8 +20,8 @@ public class StartButton : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("clicked");
+        //Debug.Log("clicked");
         //Load game scene
-        //SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScene");
     }
 }
