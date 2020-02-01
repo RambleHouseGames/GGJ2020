@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,10 +11,38 @@ public class GameManager : MonoBehaviour {
     public RailPool rightRailPool;
     public Transform railContainer;
 
+    public AudioSource mainSource;
     public TextAsset song1;
     private BeatType[] currentSong;
 
     public Transform cameraT;
+
+    public Text scoreText;
+    private int score = 0;
+    private int Score {
+        get {
+            return score;
+        }
+        set {
+            score = value;
+            scoreText.text = "Score: " + score.ToString();
+        }
+    }
+
+    public Text healthText;
+    private int health = 100;
+    private int Health {
+        get {
+            return health;
+        }
+        set {
+            health = value;
+            if(health <= 0) {
+                SceneManager.LoadScene("Result");
+            }
+            healthText.text = "Health: " + health.ToString();
+        }
+    }
 
     private List<RailSet> activeRails = new List<RailSet>();
     private bool gameStarted = false;
@@ -21,7 +51,7 @@ public class GameManager : MonoBehaviour {
     private const float GOOD_DISTANCE = 0.2f;
     private const int RAIL_LENGTH = 50;
     private const int ON_BEAT_TIE_INDEX = 2;
-    private const float BPM = 180;
+    private const float BPM = 720;
     private const float BEATS_PER_SECOND = BPM / 60f;
     private const float SECONDS_PER_BEAT = 1f / BEATS_PER_SECOND;
     private int railIndex = 0;
@@ -38,6 +68,7 @@ public class GameManager : MonoBehaviour {
             float centerTime = startTime + GetTimeForIndex(i);
             activeRails[i].time = centerTime;
         }
+        mainSource.Play();
     }
 
     private static float GetTimeForIndex(int i) {
@@ -51,7 +82,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private Vector3 GetRailPosition(int index) {
-        return new Vector3(0, 0, 1 * index);
+        return new Vector3(0, 0, index);
     }
 
     private float timeSinceLastRail = SECONDS_PER_BEAT;
@@ -92,40 +123,29 @@ public class GameManager : MonoBehaviour {
     }
 
     private void HandleLeftHit() {
-        RailSet nearestRail = GetNearestRailSet(Time.time, out float nearestTime);
+        RailSet nearestRail = GetNearestRailSet(Time.time, BeatType.LeftBend, out float nearestTime);
         HitType hitType = HitTypeForTime(nearestTime);
-        Color theColor = Color.white;
-        switch (hitType) {
-            case HitType.Perfect:
-                theColor = Color.green;
-                break;
-            case HitType.Good:
-                theColor = Color.yellow;
-                break;
-            case HitType.Miss:
-                theColor = Color.red;
-                break;
-        }
-        nearestRail.rail.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = theColor;
-        Debug.Log(nearestTime);
+        HandleHitType(hitType);
     }
 
-    private void HandleRightHit(){
-        RailSet nearestRail = GetNearestRailSet(Time.time, out float nearestTime);
+    private void HandleRightHit() {
+        RailSet nearestRail = GetNearestRailSet(Time.time, BeatType.RightBend, out float nearestTime);
         HitType hitType = HitTypeForTime(nearestTime);
-        Color theColor = Color.white;
+        HandleHitType(hitType);
+    }
+
+    private void HandleHitType(HitType hitType) {
         switch (hitType) {
             case HitType.Perfect:
-                theColor = Color.green;
+                Score += 100;
                 break;
             case HitType.Good:
-                theColor = Color.yellow;
+                Score += 50;
                 break;
             case HitType.Miss:
-                theColor = Color.red;
+                Health -= 10;
                 break;
         }
-        nearestRail.rail.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = theColor;
     }
 
     private void LateUpdate() {
@@ -162,15 +182,17 @@ public class GameManager : MonoBehaviour {
         public float time;
     }
 
-    private RailSet GetNearestRailSet(float time, out float nearestTime) {
+    private RailSet GetNearestRailSet(float time, BeatType beatType, out float nearestTime) {
         RailSet nearestRail = activeRails[0];
         nearestTime = float.MaxValue;
         for (int i = 0; i < activeRails.Count; i++) {
             RailSet rail = activeRails[i];
-            float timeDiff = Mathf.Abs(rail.time - time);
-            if(timeDiff < nearestTime) {
-                nearestRail = rail;
-                nearestTime = timeDiff;
+            if (rail.beatType == beatType) {
+                float timeDiff = Mathf.Abs(rail.time - time);
+                if (timeDiff < nearestTime) {
+                    nearestRail = rail;
+                    nearestTime = timeDiff;
+                }
             }
         }
         return nearestRail;
