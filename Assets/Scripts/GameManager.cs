@@ -66,7 +66,9 @@ public class GameManager : MonoBehaviour {
         }
         mainSource.PlayDelayed(0.9f);
         yield return new WaitForSeconds(1f);
-
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        mainSource.time = 0f;
+#endif
         startTime = Time.time;
         gameStarted = true;
         for (int i = ON_BEAT_TIE_INDEX; i < activeRails.Count; i++) {
@@ -74,7 +76,6 @@ public class GameManager : MonoBehaviour {
             activeRails[i].time = centerTime;
         }
         yield return new WaitForSeconds(1f);
-        Debug.Log("progress: " + mainSource.time);
     }
 
     private static float GetTimeForIndex(int i) {
