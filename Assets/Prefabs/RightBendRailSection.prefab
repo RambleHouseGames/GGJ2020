@@ -276,6 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7985703935122458005}
+  - component: {fileID: 6105020062778136808}
   m_Layer: 0
   m_Name: RightBendRailSection
   m_TagString: Untagged
@@ -302,6 +303,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6105020062778136808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7985703935122458006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696ccd7434ae51e42ba8ee7c824e7b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHitPosition: {fileID: 5478399599914655972}
+  rightHitPosition: {fileID: 5510398717046509147}
 --- !u!1 &8177667210007934717
 GameObject:
   m_ObjectHideFlags: 0

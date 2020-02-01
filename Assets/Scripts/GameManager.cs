@@ -143,15 +143,17 @@ public class GameManager : MonoBehaviour {
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, true);
 
+        Transform tr;   //YUUKI
         if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
+            tr = nearestMatchingRail.rail.GetComponent<RailSection>().leftHitPosition;   //YUUKI
         }
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
+            tr = nearestRail.rail.GetComponent<RailSection>().leftHitPosition;   //YUUKI
         }
+        VFXManager.Instance.RequestHitEffect(tr, hitType); //YUUKI
     }
 
     private void HandleRightHit() {
@@ -160,15 +162,17 @@ public class GameManager : MonoBehaviour {
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, false);
 
-        if(hitType != HitType.Miss) {
+        Transform tr;   //YUUKI
+        if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
+            tr = nearestMatchingRail.rail.GetComponent<RailSection>().rightHitPosition;   //YUUKI
         }
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
+            tr = nearestRail.rail.GetComponent<RailSection>().rightHitPosition;   //YUUKI
         }
+        VFXManager.Instance.RequestHitEffect(tr, hitType); //YUUKI
     }
 
     private void HandleHitType(HitType hitType) {
