@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour {
     private void RemoveRailFromWorld(RailSet railToRemove) {
         if(railToRemove.decoration != null) {
             Destroy(railToRemove.decoration);
-            railToRemove = null;
+            railToRemove.decoration = null;
         }
         GetPoolForBeatType(railToRemove.beatType).DisposeRail(railToRemove.rail);
     }
