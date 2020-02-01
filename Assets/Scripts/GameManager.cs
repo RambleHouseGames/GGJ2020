@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour {
             railIndex++;
         }
         mainSource.PlayDelayed(0.9f);
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        mainSource.time = 0f;
+#endif
         yield return new WaitForSeconds(1f);
 
         startTime = Time.time;
