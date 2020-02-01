@@ -4,11 +4,10 @@ using UnityEngine;
 public static class SongParser {
     public static BeatType[] ParseSong(TextAsset song) {
         string songText = Regex.Replace(song.text, @"\t|\n|\r", "");
-        BeatType[] result = new BeatType[songText.Length + 2];
+        BeatType[] result = new BeatType[songText.Length + 1];
         result[0] = BeatType.Normal;
-        result[1] = BeatType.Normal;
-        for (int i = 2; i < songText.Length + 2; i++) {
-            char beatChar = songText[i-2];
+        for (int i = 1; i < songText.Length + 1; i++) {
+            char beatChar = songText[i-1];
             result[i] = BeatTypeForCharacter(beatChar);
         }
         return result;
