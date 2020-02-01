@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour {
 
     public Transform cameraT;
     public HitTypeUI hitTypeUI;
-
     public Text scoreText;
     private int Score {
         get {
@@ -121,9 +120,9 @@ public class GameManager : MonoBehaviour {
             timeSinceLastRail -= Time.deltaTime;
 
             if (LeftPressed()) {
-                HandleLeftHit();
+                HandleHit(true);
             } else if (RightPressed()) {
-                HandleRightHit();
+                HandleHit(false);
             }
         }
     }
@@ -138,40 +137,28 @@ public class GameManager : MonoBehaviour {
             || Input.GetKeyDown(KeyCode.RightArrow);
     }
 
-    private void HandleLeftHit() {
-        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, BeatType.LeftBend, out float nearestTime);
+    private void HandleHit(bool left) {
+        BeatType beatType = left ? BeatType.LeftBend : BeatType.RightBend;
+        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, beatType, out float nearestTime);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
-        hitTypeUI.ShowHit(hitType, true);
+        hitTypeUI.ShowHit(hitType, left);
 
+        Transform tr;   //YUUKI
         if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
+            RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
+            tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI
         }
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
+            RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
+            tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI
         }
+        VFXManager.Instance.RequestHitEffect(tr, hitType); //YUUKI
     }
-
-    private void HandleRightHit() {
-        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, BeatType.RightBend, out float nearestTime);
-        HitType hitType = HitTypeForTime(nearestTime);
-        HandleHitType(hitType);
-        hitTypeUI.ShowHit(hitType, false);
-
-        if(hitType != HitType.Miss) {
-            nearestMatchingRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
-        }
-        else {
-            RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
-            nearestRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
-        }
-    }
-
+  
     private void HandleHitType(HitType hitType) {
         switch (hitType) {
             case HitType.Great:
