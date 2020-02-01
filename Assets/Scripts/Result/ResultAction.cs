@@ -26,6 +26,7 @@ public class ResultAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Score = SessionInfo.score;
         //Enter an arbutrary name
         PlayerName = PlayerName.GetComponent<InputField>();
         PlayerNameTextN = PlayerNameTextN.GetComponent<Text>();
