@@ -154,7 +154,7 @@ RectTransform:
   - {fileID: 886198316}
   - {fileID: 1054766554}
   m_Father: {fileID: 329919627}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -302,7 +302,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 888888
+  m_Text: 888
 --- !u!222 &195596462
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 88888
+  m_Text: 888888
 --- !u!1 &329919623
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +482,7 @@ RectTransform:
   - {fileID: 1246365473}
   - {fileID: 410429493}
   - {fileID: 727057457}
+  - {fileID: 577960533}
   - {fileID: 602865405}
   - {fileID: 117880455}
   - {fileID: 1977137547}
@@ -582,7 +583,7 @@ GameObject:
   - component: {fileID: 397502128}
   - component: {fileID: 397502127}
   m_Layer: 5
-  m_Name: HitScore4
+  m_Name: OkScore4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,6 +761,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573682830}
   m_CullTransparentMesh: 0
+--- !u!1 &577960532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 577960533}
+  m_Layer: 5
+  m_Name: GreatScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &577960533
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577960532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 972495838}
+  m_Father: {fileID: 329919627}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &592687194
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,7 +884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 602865405}
   m_Layer: 5
-  m_Name: HitScore
+  m_Name: OkScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,7 +907,7 @@ RectTransform:
   - {fileID: 397502126}
   - {fileID: 2054103451}
   m_Father: {fileID: 329919627}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1400,6 +1437,83 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &972495835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 972495838}
+  - component: {fileID: 972495837}
+  - component: {fileID: 972495836}
+  m_Layer: 5
+  m_Name: GreatScoretxt1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &972495836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972495835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 68
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 888
+--- !u!222 &972495837
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972495835}
+  m_CullTransparentMesh: 0
+--- !u!224 &972495838
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972495835}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 577960533}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -60, y: -150}
+  m_SizeDelta: {x: 256, y: 96}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1054766553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,14 +1658,14 @@ RectTransform:
   m_GameObject: {fileID: 1195451218}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6, y: 1.5, z: 0}
   m_Children: []
   m_Father: {fileID: 410429493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -600, y: -150}
+  m_AnchoredPosition: {x: 700, y: 250}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1246365471
@@ -1587,11 +1701,13 @@ MonoBehaviour:
   PlayerNameTextN: {fileID: 1948884048}
   RankScore: {fileID: 1195451219}
   TotalScoreText: {fileID: 304493359}
-  HitScoreText: {fileID: 2073780892}
+  GreatScoreText: {fileID: 972495836}
+  OkScoreText: {fileID: 2073780892}
   MissScoreText: {fileID: 195596461}
   Score: 0
   Score1: 0
   Score2: 0
+  Score3: 0
 --- !u!4 &1246365473
 Transform:
   m_ObjectHideFlags: 0
@@ -1618,7 +1734,7 @@ GameObject:
   - component: {fileID: 1326801639}
   - component: {fileID: 1326801638}
   m_Layer: 5
-  m_Name: HitScore3
+  m_Name: OkScore3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2014,7 +2130,7 @@ RectTransform:
   - {fileID: 808783154}
   - {fileID: 1948884047}
   m_Father: {fileID: 329919627}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2154,7 +2270,7 @@ GameObject:
   - component: {fileID: 2054103453}
   - component: {fileID: 2054103452}
   m_Layer: 5
-  m_Name: HitScore5
+  m_Name: OkScore5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2231,7 +2347,7 @@ GameObject:
   - component: {fileID: 2073780893}
   - component: {fileID: 2073780892}
   m_Layer: 5
-  m_Name: HitScore1
+  m_Name: OkScore1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2287,7 +2403,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 888888
+  m_Text: 888
 --- !u!222 &2073780893
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2308,7 +2424,7 @@ GameObject:
   - component: {fileID: 2082697770}
   - component: {fileID: 2082697769}
   m_Layer: 5
-  m_Name: HitScore2
+  m_Name: OkScore2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
