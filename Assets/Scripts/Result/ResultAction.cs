@@ -12,11 +12,13 @@ public class ResultAction : MonoBehaviour
 
     //Score Display
     int TotalScore = 0;
-    int HitScore = 0;
+    int GreatScore = 0;
+    int OkScore = 0;
     int MissScore = 0;
     public Text RankScore;
     public Text TotalScoreText;
-    public Text HitScoreText;
+    public Text GreatScoreText;
+    public Text OkScoreText;
     public Text MissScoreText;
     /*public Text[] TotalScoreRank = new Text [5];
     public Text[] HitScore = new Text[5];
@@ -24,12 +26,16 @@ public class ResultAction : MonoBehaviour
     public int Score = 0;
     public int Score1 = 0;
     public int Score2 = 0;
+    public int Score3 = 0;
     float Elapsed = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         Score = SessionInfo.score;
+        Score1 = SessionInfo.greatCount;
+        Score2 = SessionInfo.okCount;
+        Score3 = SessionInfo.missCount;
 
         //Enter an arbutrary name
         PlayerName = PlayerName.GetComponent<InputField>();
@@ -37,10 +43,12 @@ public class ResultAction : MonoBehaviour
 
         //Score Display
         TotalScore = Score;
-        HitScore = Score1;
-        MissScore = Score2;
+        GreatScore = Score1;
+        OkScore = Score2;
+        MissScore = Score3;
         TotalScoreText.text = "" + TotalScore;
-        HitScoreText.text = "" + HitScore;
+        GreatScoreText.text = "" + GreatScore;
+        OkScoreText.text = "" + OkScore;
         MissScoreText.text = "" + MissScore;
 
         //for (int idx = 0; idx < 5; idx++) {
