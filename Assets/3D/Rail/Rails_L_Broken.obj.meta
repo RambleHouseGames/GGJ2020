@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 42d04c1eae1b2124f81d082e0cf1796a
+guid: 379d67b556d29d848ba0b382dfcee89e
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Broken_MirrorMat
+    second: {fileID: 2100000, guid: 4c5e93f7cf042224e9bfdce9a6f636ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rail_FixedMat
+    second: {fileID: 2100000, guid: 4c5e93f7cf042224e9bfdce9a6f636ea, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -60,7 +70,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 40
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
