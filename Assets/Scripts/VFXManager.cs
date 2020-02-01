@@ -27,10 +27,9 @@ public class VFXManager : SingletonMonoBehaviour<VFXManager>
     /// </summary>
     /// <param name="rail">Hit rail</param>
     /// <param name="result">Great, Good, or Miss</param>
-    public void RequestHitEffect(RailSet railSet, HitType result)
+    public void RequestHitEffect(Transform rail, HitType result)
     {
-        GameObject rail = railSet.rail;
-        GameObject vfx = Instantiate(hitEffect, rail.transform);
+        GameObject vfx = Instantiate(hitEffect, rail);
 
         ParticleSystem ps = hitEffect.GetComponent<ParticleSystem>();
         if (ps == null)

@@ -145,12 +145,12 @@ public class GameManager : MonoBehaviour {
 
         if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestMatchingRail, hitType); //YUUKI
+            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
         }
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestRail, hitType); //YUUKI
+            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
         }
     }
 
@@ -162,12 +162,12 @@ public class GameManager : MonoBehaviour {
 
         if(hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestMatchingRail, hitType); //YUUKI
+            VFXManager.Instance.RequestHitEffect(nearestMatchingRail.rail.transform, hitType); //YUUKI
         }
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            VFXManager.Instance.RequestHitEffect(nearestRail, hitType); //YUUKI
+            VFXManager.Instance.RequestHitEffect(nearestRail.rail.transform, hitType); //YUUKI
         }
     }
 
