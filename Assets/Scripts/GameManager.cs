@@ -76,7 +76,6 @@ public class GameManager : MonoBehaviour {
             activeRails[i].time = centerTime;
         }
         yield return new WaitForSeconds(1f);
-        Debug.Log("progress: " + mainSource.time);
     }
 
     private static float GetTimeForIndex(int i) {
