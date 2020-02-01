@@ -948,6 +948,51 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1182779989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1182779991}
+  - component: {fileID: 1182779990}
+  m_Layer: 0
+  m_Name: HitTypeUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1182779990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182779989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0acf90492e696144a78add48515b7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftSpawnLocation: {fileID: 0}
+  rightSpawnLocation: {fileID: 0}
+--- !u!4 &1182779991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182779989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1614385405}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1540001221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,6 +1106,7 @@ MonoBehaviour:
   mainSource: {fileID: 852444860}
   song1: {fileID: 4900000, guid: 9fceab8412ceb4db9adbd976e434b7a5, type: 3}
   cameraT: {fileID: 533266856}
+  hitTypeUI: {fileID: 1182779990}
   scoreText: {fileID: 1540001223}
   healthText: {fileID: 661345569}
 --- !u!4 &1614385405
@@ -1076,6 +1122,7 @@ Transform:
   m_Children:
   - {fileID: 1044019135}
   - {fileID: 852444859}
+  - {fileID: 1182779991}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

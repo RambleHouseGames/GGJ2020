@@ -16,16 +16,16 @@ public class GameManager : MonoBehaviour {
     private BeatType[] currentSong;
 
     public Transform cameraT;
+    public HitTypeUI hitTypeUI;
 
     public Text scoreText;
-    private int score = 0;
     private int Score {
         get {
-            return score;
+            return SessionInfo.score;
         }
         set {
-            score = value;
-            scoreText.text = "Score: " + score.ToString();
+            SessionInfo.score = value;
+            scoreText.text = "Score: " + SessionInfo.score.ToString();
         }
     }
 
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour {
     private const float SECONDS_PER_BEAT = 1f / BEATS_PER_SECOND;
     private int railIndex = 0;
     IEnumerator Start() {
+        SessionInfo.Reset();
         currentSong = SongParser.ParseSong(song1);
         for (int i = 0; i < RAIL_LENGTH; i++) {
             activeRails.Add(AddRail(railIndex, currentSong[railIndex]));
@@ -126,20 +127,24 @@ public class GameManager : MonoBehaviour {
         RailSet nearestRail = GetNearestRailSet(Time.time, BeatType.LeftBend, out float nearestTime);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
+        hitTypeUI.ShowHit(hitType, true);
     }
 
     private void HandleRightHit() {
         RailSet nearestRail = GetNearestRailSet(Time.time, BeatType.RightBend, out float nearestTime);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
+        hitTypeUI.ShowHit(hitType, false);
     }
 
     private void HandleHitType(HitType hitType) {
         switch (hitType) {
-            case HitType.Perfect:
+            case HitType.Great:
+                SessionInfo.greatCount++;
                 Score += 100;
                 break;
-            case HitType.Good:
+            case HitType.OK:
+                SessionInfo.okCount++;
                 Score += 50;
                 break;
             case HitType.Miss:
@@ -204,17 +209,11 @@ public class GameManager : MonoBehaviour {
 
     private static HitType HitTypeForTime(float timeDiff) {
         if(timeDiff < PERFECT_DISTANCE) {
-            return HitType.Perfect;
+            return HitType.Great;
         } else if (timeDiff < GOOD_DISTANCE) {
-            return HitType.Good;
+            return HitType.OK;
         } else {
             return HitType.Miss;
         }
-    }
-
-    private enum HitType {
-        Perfect,
-        Good,
-        Miss
     }
 }
