@@ -1,49 +1,61 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
     public List<GameObject> scoreTextList = new List<GameObject>();     // Textオブジェクトリスト
-    public List<int> scoreNumList = new List<int>();                    // スコア変数リスト
-    public int[] scoreForDebug = new int[10];                            // For Debug
+    //public List<int> scoreNumList = new List<int>();                  // スコア変数リスト
+
+    public List<Person> personList = new List<Person>();                // パーソンリスト
+    public int[] scoreForDebug = new int[10];                           // For Debug
+    public 
     int num = 0;
 
-    public void AddRunking(int score)
+    public struct Person
     {
-        //スコアリストに今回のスコアを追加
-        scoreNumList.Add(score);
+        public string name;
+        public int score;
+    }
+
+    public void AddRunking(int score , string name)
+    {
+        Person p = new Person();
+        p.name = name;
+        p.score = score;
+
+        //パーソンリストに今回のパーソンを追加
+        personList.Add(p);
 
         //降順にソート
-        scoreNumList.Sort((a, b) => b - a);
+        personList.Sort((a, b) => b.score - a.score);
 
         for (int i = 0; i < 5; i++)
         {
             // オブジェクトからTextコンポーネントを取得
             Text score_text = scoreTextList[i].GetComponent<Text>();
 
-            if (scoreNumList.Count > i)
+            if (personList.Count > i)
             {
                 // テキストの表示を入れ替える
-                score_text.text = "Score:" + scoreNumList[i];
+                score_text.text = "Score:" + personList[i].score;
 
                 switch (i)
                 {
                     case 0:
-                        PlayerPrefs.SetInt("Score1", scoreNumList[i]);
+                        PlayerPrefs.SetInt("Score1", personList[i].score);
                         break;
                     case 1:
-                        PlayerPrefs.SetInt("Score2", scoreNumList[i]);
+                        PlayerPrefs.SetInt("Score2", personList[i].score);
                         break;
                     case 2:
-                        PlayerPrefs.SetInt("Score3", scoreNumList[i]);
+                        PlayerPrefs.SetInt("Score3", personList[i].score);
                         break;
                     case 3:
-                        PlayerPrefs.SetInt("Score4", scoreNumList[i]);
+                        PlayerPrefs.SetInt("Score4", personList[i].score);
                         break;
                     case 4:
-                        PlayerPrefs.SetInt("Score5", scoreNumList[i]);
+                        PlayerPrefs.SetInt("Score5", personList[i].score);
                         break;
 
                 }
@@ -57,25 +69,35 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Resultから戻ってきてハイスコア更新した場合、そのデータを入れる
+        AddRunking(PlayerPrefs.GetInt("Score",0) , PlayerPrefs.GetString("Name" , "no name"));
+
         //PlayerPrefsのScoreデータをscoreNumListに入れる
         for (int i = 0; i < 5; i++)
         {
+            Person p = new Person();
+
             switch (i)
             {
                 case 0:
-                    scoreNumList.Add(PlayerPrefs.GetInt("Score1", 0));
+                    p.score = PlayerPrefs.GetInt("Score1", 0);
+                    p.name = PlayerPrefs.GetString("Name1", "no name");
                     break;
                 case 1:
-                    scoreNumList.Add(PlayerPrefs.GetInt("Score2", 0));
+                    p.score = PlayerPrefs.GetInt("Score1", 0);
+                    p.name = PlayerPrefs.GetString("Name1", "no name");
                     break;
                 case 2:
-                    scoreNumList.Add(PlayerPrefs.GetInt("Score3", 0));
+                    p.score = PlayerPrefs.GetInt("Score1", 0);
+                    p.name = PlayerPrefs.GetString("Name1", "no name");
                     break;
                 case 3:
-                    scoreNumList.Add(PlayerPrefs.GetInt("Score4", 0));
+                    p.score = PlayerPrefs.GetInt("Score1", 0);
+                    p.name = PlayerPrefs.GetString("Name1", "no name");
                     break;
                 case 4:
-                    scoreNumList.Add(PlayerPrefs.GetInt("Score5", 0));
+                    p.score = PlayerPrefs.GetInt("Score1", 0);
+                    p.name = PlayerPrefs.GetString("Name1", "no name");
                     break;
             }
 
@@ -83,7 +105,7 @@ public class ScoreManager : MonoBehaviour
             Text score_text = scoreTextList[i].GetComponent<Text>();
 
             // シーン開始時のスコアを表示
-            score_text.text = "Score:" + scoreNumList[i];
+            score_text.text = "Score:" + personList[i].score;
         }
 
     }
@@ -93,7 +115,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            AddRunking(scoreForDebug[num]);
+            AddRunking(scoreForDebug[num] , "no name");
             num++;
         }
 
