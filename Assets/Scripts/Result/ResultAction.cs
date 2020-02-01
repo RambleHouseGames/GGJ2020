@@ -9,6 +9,7 @@ public class ResultAction : MonoBehaviour
     //Enter an arbutrary name
     public InputField PlayerName;
     public Text PlayerNameTextN;
+    GameObject buttonA;
 
     //Score Display
     int TotalScore = 0;
@@ -27,7 +28,6 @@ public class ResultAction : MonoBehaviour
     public int Score1 = 0;
     public int Score2 = 0;
     public int Score3 = 0;
-    float Elapsed = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -37,9 +37,11 @@ public class ResultAction : MonoBehaviour
         Score2 = SessionInfo.okCount;
         Score3 = SessionInfo.missCount;
 
+        buttonA = GameObject.Find("Button1");
+        buttonA.SetActive(false);
         //Enter an arbutrary name
-        PlayerName = PlayerName.GetComponent<InputField>();
-        PlayerNameTextN = PlayerNameTextN.GetComponent<Text>();
+        //PlayerName = PlayerName.GetComponent<InputField>();
+        //PlayerNameTextN = PlayerNameTextN.GetComponent<Text>();
 
         //Score Display
         TotalScore = Score;
@@ -66,7 +68,7 @@ public class ResultAction : MonoBehaviour
         {
             RankScore.text = "D";
         }
-        else if(TotalScore >= 101 && TotalScore <= 500)
+        else if (TotalScore >= 101 && TotalScore <= 500)
         {
             RankScore.text = "C";
         }
@@ -90,23 +92,21 @@ public class ResultAction : MonoBehaviour
         PlayerNameTextN.text = PlayerName.text;
     }
 
+    public void Submitname()
+    {
+        PlayerName.gameObject.SetActive(false);
+        buttonA.SetActive(true);
+    }
+
+    public void Titlename()
+    {
+        buttonA.SetActive(false);
+        SceneManager.LoadScene("Title");
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1"))
-        {
-            Elapsed += Time.deltaTime; //画面を押し続けている間ずっと   
-            if (Elapsed > 3.0f)
-            {
-                PlayerPrefs.SetInt("Score", Score);
-                PlayerPrefs.SetString("Name", PlayerNameTextN.text);
-                PlayerPrefs.Save();
-                SceneManager.LoadScene("Title");
-            }
-        }
-        if (Input.GetButtonUp("Fire1"))
-        {
-            Elapsed = 0.0f; //画面押しを離した    
-        }
+
     }
 }
