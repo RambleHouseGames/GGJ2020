@@ -146,7 +146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83411837}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 1.6}
+  m_LocalPosition: {x: 0, y: 0.3, z: 1.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1755423419}
@@ -1339,6 +1339,8 @@ MonoBehaviour:
   leftRailPool: {fileID: 119861236}
   rightRailPool: {fileID: 471729416}
   railContainer: {fileID: 1614385405}
+  decorations:
+  - {fileID: 3521131144137025896, guid: bf1d5d039938748cd9d8885034e1ff49, type: 3}
   mainSource: {fileID: 852444860}
   song1: {fileID: 4900000, guid: 14d36c494427f4a7083cda95021a7413, type: 3}
   fadeImage: {fileID: 1581971392}

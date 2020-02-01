@@ -6,7 +6,7 @@ public class HammerManager : MonoBehaviour {
 
     private Coroutine leftHammerRoutine = null;
     private Coroutine rightHammerRoutine = null;
-    private const float ANIM_TIME = 0.666f;
+    private const float ANIM_TIME = 0.5f;
     private const float startRotation = -5f;
     private const float endRotation = -45f;
     public void HitWithHammer(bool left) {

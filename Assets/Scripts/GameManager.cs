@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public RailPool leftRailPool;
     public RailPool rightRailPool;
     public Transform railContainer;
+    public GameObject[] decorations;
 
     public AudioSource mainSource;
     public TextAsset song1;
@@ -95,7 +96,15 @@ public class GameManager : MonoBehaviour {
     private RailSet AddRail(int index, BeatType beatType) {
         RailSet newRail = GetRailForBeatType(beatType);
         newRail.railIndex = index;
-        newRail.rail.transform.position = GetRailPosition(index);
+        Vector3 pos = GetRailPosition(index);
+        newRail.rail.transform.position = pos;
+        if (Random.Range(0f, 1f) > 0.88f) {
+            GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
+            float x = Random.Range(-4f, 4f);
+            x += (x > 0) ? 2f : -2f;
+            newDecoration.transform.position = pos.SetX(x);
+            newRail.decoration = newDecoration;
+        }
         return newRail;
     }
 
@@ -108,7 +117,7 @@ public class GameManager : MonoBehaviour {
         if (gameStarted) {
             if (timeSinceLastRail <= 0) {
                 RailSet railToRemove = activeRails[0];
-                if(railToRemove.beatType == BeatType.Normal) {
+                if (railToRemove.beatType == BeatType.Normal) {
                     if (railToRemove.wasHit) {
                         Health -= 5;
                     }
@@ -117,7 +126,8 @@ public class GameManager : MonoBehaviour {
                         Health -= 5;
                     }
                 }
-                GetPoolForBeatType(railToRemove.beatType).DisposeRail(railToRemove.rail);
+
+                RemoveRailFromWorld(railToRemove);
                 activeRails.RemoveAt(0);
 
                 RailSet newRail = AddRail(railIndex, GetBeatOfCurrentSong(railIndex));
@@ -137,6 +147,14 @@ public class GameManager : MonoBehaviour {
                 HandleHit(false);
             }
         }
+    }
+
+    private void RemoveRailFromWorld(RailSet railToRemove) {
+        if(railToRemove.decoration != null) {
+            Destroy(railToRemove.decoration);
+            railToRemove = null;
+        }
+        GetPoolForBeatType(railToRemove.beatType).DisposeRail(railToRemove.rail);
     }
 
     private static bool LeftPressed() {
@@ -162,17 +180,13 @@ public class GameManager : MonoBehaviour {
             nearestMatchingRail.wasHit = true;
             float oldTime = nearestMatchingRail.time;
             int oldIndex = nearestMatchingRail.railIndex;
-            GetPoolForBeatType(nearestMatchingRail.beatType).DisposeRail(nearestMatchingRail.rail);
+            GameObject oldDecoration = nearestMatchingRail.decoration;
+            nearestMatchingRail.decoration = null;
+            RemoveRailFromWorld(nearestMatchingRail);
             RailSet newRail = AddRail(oldIndex, BeatType.Normal);
             newRail.time = oldTime;
+            newRail.decoration = oldDecoration;
             activeRails[nearestIndex] = newRail;
-
-            activeRails[nearestIndex] = new RailSet() {
-                rail = GetPoolForBeatType(BeatType.Normal).GetRail(railContainer),
-                beatType = BeatType.Normal,
-                time = oldTime,
-                wasHit = false
-            };
             
             RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
             tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI

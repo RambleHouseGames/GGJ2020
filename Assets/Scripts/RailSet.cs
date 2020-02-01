@@ -7,6 +7,7 @@ public class RailSet {
     public float time;
     public bool wasHit = false;
     public int railIndex;
+    public GameObject decoration;
 
     public static RailSet  GetNearestMatchingRailSet(List<RailSet> rails, float time, BeatType beatType, out float nearestTime, out int nearestIndex) {
         RailSet nearestRail = rails[0];
