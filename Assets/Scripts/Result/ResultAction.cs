@@ -62,7 +62,7 @@ public class ResultAction : MonoBehaviour
             if (Elapsed > 3.0f)
             {
                 PlayerPrefs.SetInt("Score", Score);
-                PlayerPrefs.SetString("Name", "no name");
+                PlayerPrefs.SetString("Name", PlayerNameTextN.text);
                 PlayerPrefs.Save();
                 SceneManager.LoadScene("Title");
             }
