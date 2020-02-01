@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 
     public Image fadeImage;
 
+    public HammerManager hammerManager;
     public Transform cameraT;
     public HitTypeUI hitTypeUI;
     public Text scoreText;
@@ -154,6 +155,7 @@ public class GameManager : MonoBehaviour {
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, left);
+        hammerManager.HitWithHammer(left);
 
         Transform tr;   //YUUKI
         if (hitType != HitType.Miss) {
