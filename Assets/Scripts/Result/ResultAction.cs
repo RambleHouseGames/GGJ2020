@@ -61,6 +61,27 @@ public class ResultAction : MonoBehaviour
         //    txtRank[idx].text = PlayerPrefs.GetFloat("R" + idx).ToString("f2") + "s";
         //}
         //}
+
+        if (TotalScore >= 0 && TotalScore <= 100)
+        {
+            RankScore.text = "D";
+        }
+        else if(TotalScore >= 101 && TotalScore <= 500)
+        {
+            RankScore.text = "C";
+        }
+        else if (TotalScore >= 501 && TotalScore <= 1000)
+        {
+            RankScore.text = "B";
+        }
+        else if (TotalScore >= 1001 && TotalScore <= 2000)
+        {
+            RankScore.text = "A";
+        }
+        else if (TotalScore >= 2001)
+        {
+            RankScore.text = "S";
+        }
     }
 
     public void InputText()
