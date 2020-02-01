@@ -6,10 +6,12 @@ public class RailSet {
     public BeatType beatType;
     public float time;
     public bool wasHit = false;
+    public int railIndex;
 
-    public static RailSet  GetNearestMatchingRailSet(List<RailSet> rails, float time, BeatType beatType, out float nearestTime) {
+    public static RailSet  GetNearestMatchingRailSet(List<RailSet> rails, float time, BeatType beatType, out float nearestTime, out int nearestIndex) {
         RailSet nearestRail = rails[0];
         nearestTime = float.MaxValue;
+        nearestIndex = 0;
         for (int i = 0; i < rails.Count; i++) {
             RailSet rail = rails[i];
             if (rail.beatType == beatType) {
@@ -17,6 +19,7 @@ public class RailSet {
                 if (timeDiff < nearestTime) {
                     nearestRail = rail;
                     nearestTime = timeDiff;
+                    nearestIndex = i;
                 }
             }
         }

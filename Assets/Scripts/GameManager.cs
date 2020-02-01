@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour {
 
     private RailSet AddRail(int index, BeatType beatType) {
         RailSet newRail = GetRailForBeatType(beatType);
+        newRail.railIndex = index;
         newRail.rail.transform.position = GetRailPosition(index);
         return newRail;
     }
@@ -149,7 +150,7 @@ public class GameManager : MonoBehaviour {
 
     private void HandleHit(bool left) {
         BeatType beatType = left ? BeatType.LeftBend : BeatType.RightBend;
-        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, beatType, out float nearestTime);
+        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, beatType, out float nearestTime, out int nearestIndex);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, left);
@@ -157,6 +158,20 @@ public class GameManager : MonoBehaviour {
         Transform tr;   //YUUKI
         if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
+            float oldTime = nearestMatchingRail.time;
+            int oldIndex = nearestMatchingRail.railIndex;
+            GetPoolForBeatType(nearestMatchingRail.beatType).DisposeRail(nearestMatchingRail.rail);
+            RailSet newRail = AddRail(oldIndex, BeatType.Normal);
+            newRail.time = oldTime;
+            activeRails[nearestIndex] = newRail;
+
+            activeRails[nearestIndex] = new RailSet() {
+                rail = GetPoolForBeatType(BeatType.Normal).GetRail(railContainer),
+                beatType = BeatType.Normal,
+                time = oldTime,
+                wasHit = false
+            };
+            
             RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
             tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI
         }
