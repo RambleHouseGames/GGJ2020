@@ -101,13 +101,13 @@ public class GameManager : MonoBehaviour {
         if (Random.Range(0f, 1f) > 0.88f) {
             GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
             newRail.decoration = newDecoration;
-            float x = Random.Range(-4f, 4f);
+            float x = Random.Range(-5f, 5f);
             x += (x > 0) ? 2f : -2f;
             Transform decT = newDecoration.transform;
             decT.position = pos.SetX(x);
             if (index > RAIL_LENGTH) {
                 Vector3 startScale = Vector3.zero;
-                Vector3 endScale = new Vector3(0.14f, 0.14f, 0.14f);
+                Vector3 endScale = Vector3.one;
                 decT.localScale = startScale;
                 this.CreateAnimationRoutine(
                     1f,

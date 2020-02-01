@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1340,7 +1340,7 @@ MonoBehaviour:
   rightRailPool: {fileID: 471729416}
   railContainer: {fileID: 1614385405}
   decorations:
-  - {fileID: 3521131144137025896, guid: bf1d5d039938748cd9d8885034e1ff49, type: 3}
+  - {fileID: 3151171602578746178, guid: 2c2a84413b9b847b498ecebaa8cbfdef, type: 3}
   mainSource: {fileID: 852444860}
   song1: {fileID: 4900000, guid: 14d36c494427f4a7083cda95021a7413, type: 3}
   fadeImage: {fileID: 1581971392}
