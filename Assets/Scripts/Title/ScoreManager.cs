@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     public List<Person> personList = new List<Person>();                // パーソンリスト
     //public int[] scoreForDebug = new int[10];                           // For Debug
     //public string[] nameForDebug = new string[10];
-    public int num = 0;
+    //public int num = 0;
 
     public struct Person
     {
@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
         public int score;
     }
 
-    public void AddRunking(int score , string name)
+    public void AddRanking(int score , string name)
     {
         Person p = new Person();
         p.name = name;
@@ -37,6 +37,7 @@ public class ScoreManager : MonoBehaviour
             Text score_text = scoreTextList[i].GetComponent<Text>();
             Text name_text = nameTextList[i].GetComponent<Text>();
 
+            //ランキング登録者数の回数だけname/scoreを書き直す
             if (personList.Count > i)
             {
                 // テキストの表示を入れ替える
@@ -75,18 +76,8 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Resultから戻ってきてハイスコア更新した場合、そのデータを入れる
-        AddRunking(PlayerPrefs.GetInt("Score",0) , PlayerPrefs.GetString("Name" , "no name"));
-
-        // 引数で指定したキーを削除する
-        PlayerPrefs.DeleteKey("Score");
-        PlayerPrefs.DeleteKey("Name");
-
-        //PlayerPrefs.SetInt("Score",0);
-        //PlayerPrefs.SetString("Name", "no name");
-        //PlayerPrefs.Save();
-
-        //PlayerPrefsのScoreデータをpersonList.scoreに入れる
+        //タイトルシーンになったら
+        //PlayerPrefsのScoreデータ1～5をpersonList.scoreに入れる
         for (int i = 0; i < 5; i++)
         {
             Person p = new Person();
@@ -125,6 +116,18 @@ public class ScoreManager : MonoBehaviour
             name_text.text = personList[i].name;
         }
 
+        //Resultから戻ってきてハイスコア更新した場合、そのデータを入れる
+        //"Score"と"Name"はResult画面で更新されている
+        AddRanking(PlayerPrefs.GetInt("Score", 0), PlayerPrefs.GetString("Name", "no name"));
+
+        //"Score"と"Name"を登録したのでリセット
+        PlayerPrefs.DeleteKey("Score");
+        PlayerPrefs.DeleteKey("Name");
+
+        //PlayerPrefs.SetInt("Score",0);
+        //PlayerPrefs.SetString("Name", "no name");
+        //PlayerPrefs.Save();   
+
     }
 
     // Update is called once per frame
@@ -132,7 +135,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //AddRunking(scoreForDebug[num] , nameForDebug[num]);
+            //AddRanking(scoreForDebug[num] , nameForDebug[num]);
             //num++;
         }
 
