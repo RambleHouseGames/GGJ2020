@@ -91,6 +91,15 @@ public class GameManager : MonoBehaviour {
         if (gameStarted) {
             if (timeSinceLastRail <= 0) {
                 RailSet railToRemove = activeRails[0];
+                if(railToRemove.beatType == BeatType.Normal) {
+                    if (railToRemove.wasHit) {
+                        Health -= 10;
+                    }
+                } else {
+                    if (!railToRemove.wasHit) {
+                        Health -= 10;
+                    }
+                }
                 GetPoolForBeatType(railToRemove.beatType).DisposeRail(railToRemove.rail);
                 activeRails.RemoveAt(0);
 
@@ -124,17 +133,31 @@ public class GameManager : MonoBehaviour {
     }
 
     private void HandleLeftHit() {
-        RailSet nearestRail = GetNearestRailSet(Time.time, BeatType.LeftBend, out float nearestTime);
+        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, BeatType.LeftBend, out float nearestTime);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, true);
+
+        if (hitType != HitType.Miss) {
+            nearestMatchingRail.wasHit = true;
+        } else {
+            RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
+            nearestRail.wasHit = true;
+        }
     }
 
     private void HandleRightHit() {
-        RailSet nearestRail = GetNearestRailSet(Time.time, BeatType.RightBend, out float nearestTime);
+        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, BeatType.RightBend, out float nearestTime);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, false);
+
+        if(hitType != HitType.Miss) {
+            nearestMatchingRail.wasHit = true;
+        } else {
+            RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
+            nearestRail.wasHit = true;
+        }
     }
 
     private void HandleHitType(HitType hitType) {
@@ -148,7 +171,7 @@ public class GameManager : MonoBehaviour {
                 Score += 50;
                 break;
             case HitType.Miss:
-                Health -= 10;
+                SessionInfo.missCount++;
                 break;
         }
     }
@@ -179,28 +202,6 @@ public class GameManager : MonoBehaviour {
             default:
                 return railPool;
         }
-    }
-
-    private class RailSet {
-        public GameObject rail;
-        public BeatType beatType;
-        public float time;
-    }
-
-    private RailSet GetNearestRailSet(float time, BeatType beatType, out float nearestTime) {
-        RailSet nearestRail = activeRails[0];
-        nearestTime = float.MaxValue;
-        for (int i = 0; i < activeRails.Count; i++) {
-            RailSet rail = activeRails[i];
-            if (rail.beatType == beatType) {
-                float timeDiff = Mathf.Abs(rail.time - time);
-                if (timeDiff < nearestTime) {
-                    nearestRail = rail;
-                    nearestTime = timeDiff;
-                }
-            }
-        }
-        return nearestRail;
     }
 
     private void OnGUI() {
