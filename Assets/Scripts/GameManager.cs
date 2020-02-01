@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour {
     private const float SECONDS_PER_BEAT = 1f / BEATS_PER_SECOND;
     private int railIndex = 0;
     IEnumerator Start() {
+        Health = 100;
+        Score = 0;
         SessionInfo.Reset();
         currentSong = SongParser.ParseSong(song1);
         for (int i = 0; i < RAIL_LENGTH; i++) {
