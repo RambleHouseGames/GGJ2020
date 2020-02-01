@@ -11,30 +11,38 @@ public class ResultAction : MonoBehaviour
     public Text PlayerNameTextN;
 
     //Score Display
-    public int TotalScore;
-    public Text HitScore;
-    public Text MissScore;
+    int TotalScore = 0;
+    int HitScore = 0;
+    int MissScore = 0;
     public Text RankScore;
+    public Text TotalScoreText;
+    public Text HitScoreText;
+    public Text MissScoreText;
     /*public Text[] TotalScoreRank = new Text [5];
     public Text[] HitScore = new Text[5];
     public Text[] MissScore = new Text[5];*/
-    float Elapsed = 0.0f;
     public int Score = 0;
-    public string Score1 = "00000";
-    public string Score2 = "00000";
+    public int Score1 = 0;
+    public int Score2 = 0;
+    float Elapsed = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         Score = SessionInfo.score;
+
         //Enter an arbutrary name
         PlayerName = PlayerName.GetComponent<InputField>();
         PlayerNameTextN = PlayerNameTextN.GetComponent<Text>();
 
         //Score Display
         TotalScore = Score;
-        HitScore.text = Score1;
-        MissScore.text = Score2;
+        HitScore = Score1;
+        MissScore = Score2;
+        TotalScoreText.text = "" + TotalScore;
+        HitScoreText.text = "" + HitScore;
+        MissScoreText.text = "" + MissScore;
+
         //for (int idx = 0; idx < 5; idx++) {
         //TotalScoreRank[idx].text = Score;
         //HitScore[idx].text = Score1;
