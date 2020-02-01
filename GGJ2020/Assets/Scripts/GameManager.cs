@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
     private float startTime;
     private const float PERFECT_DISTANCE = 0.12f;
     private const float GOOD_DISTANCE = 0.2f;
-    private const int RAIL_LENGTH = 40;
+    private const int RAIL_LENGTH = 50;
     private const int ON_BEAT_TIE_INDEX = 2;
     private const float BPM = 180;
     private const float BEATS_PER_SECOND = BPM / 60f;
