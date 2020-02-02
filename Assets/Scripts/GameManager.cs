@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public RailPool rightRailPool;
     public Transform railContainer;
     public GameObject[] decorations;
+    public GameObject fencePrefab;
 
     public AudioSource mainSource;
     public TextAsset song1;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
     public HammerManager hammerManager;
     public TerrainManager terrainManager;
+    public ReadyGoManager readyGoManager;
     public Transform cameraT;
     private Vector3 cameraStartPos;
 
@@ -79,8 +81,9 @@ public class GameManager : MonoBehaviour {
             activeRails.Add(AddRail(railIndex, GetBeatOfCurrentSong(railIndex)));
             railIndex++;
         }
-        mainSource.PlayDelayed(0.9f);
-        yield return new WaitForSeconds(1f);
+        readyGoManager.ShowReadyGo(3f);
+        mainSource.PlayDelayed(2.9f);
+        yield return new WaitForSeconds(3f);
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
         mainSource.time = 0f;
 #endif
@@ -104,25 +107,20 @@ public class GameManager : MonoBehaviour {
         Vector3 pos = GetRailPosition(index);
         newRail.rail.transform.position = pos;
 
-        if (Random.Range(0f, 1f) > 0.88f) {
+        if (Random.Range(0f, 1f) > 0.9f) {
             GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
             newRail.decoration = newDecoration;
             float x = Random.Range(-5f, 5f);
             x += (x > 0) ? 3f : -3f;
             Transform decT = newDecoration.transform;
             decT.position = new Vector3(x, 0, pos.z);
+            decT.localEulerAngles = new Vector3(0, Random.Range(0, 360), 0);
            
-            if (index > RAIL_LENGTH) {
-                Vector3 startScale = Vector3.zero;
-                Vector3 endScale = Vector3.one;
-                decT.localScale = startScale;
-                this.CreateAnimationRoutine(
-                    1f,
-                    delegate (float progress) {
-                        decT.localScale = Vector3.Lerp(startScale, endScale, progress);
-                    }
-                );
-            }
+        } else if (Random.Range(0f, 1f) > 0.92f) {
+            GameObject newFence = Instantiate(fencePrefab);
+            newRail.decoration = newFence;
+            float x = Random.Range(0f, 1f) > 0.5f ? 3.2f : -3.2f;
+            newFence.transform.position = new Vector3(x, 0, pos.z);
         }
         return newRail;
     }
@@ -216,6 +214,8 @@ public class GameManager : MonoBehaviour {
         Transform hammer;
         hammer = left ? hammerManager.leftHammer : hammerManager.rightHammer;
         Transform tr = hammer.GetComponent<Hammer>().HitPosition;
+        Quaternion rot = left ? Quaternion.Euler(70.0f, -30.0f, 0.0f) : Quaternion.Euler(70.0f, 30.0f, 0.0f);
+        tr.rotation = rot;
         VFXManager.Instance.RequestHitEffect(tr, hitType);
         //---------------------------
     }
@@ -267,6 +267,7 @@ public class GameManager : MonoBehaviour {
     private Coroutine exitRoutine = null;
     private void GoToResultScreen() {
         if (exitRoutine == null) {
+            fadeImage.gameObject.SetActive(true);
             Color startColor = fadeImage.color;
             Color endColor = Color.white;
             exitRoutine = this.CreateAnimationRoutine(
