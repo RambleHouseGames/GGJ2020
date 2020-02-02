@@ -142,6 +142,8 @@ public class GameManager : MonoBehaviour {
                 } else {
                     if (!railToRemove.wasHit) {
                         Health -= 5;
+                        GameObject cam = Camera.main.gameObject;
+                        cam.GetComponent<ShakeCamera>().RequestCameraShake();
                     }
                 }
 
@@ -209,6 +211,11 @@ public class GameManager : MonoBehaviour {
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
+            //---------------------------
+            // SHAKE THE CAMERA (YUUKI)
+            GameObject cam = Camera.main.gameObject;
+            cam.GetComponent<ShakeCamera>().RequestCameraShake();
+            //---------------------------
         }
         //---------------------------
         // request hit effect (YUUKI)
