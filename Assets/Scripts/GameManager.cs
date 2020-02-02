@@ -196,7 +196,6 @@ public class GameManager : MonoBehaviour {
         hammerManager.HitWithHammer(left);
 
         if (hitType != HitType.Miss) {
-            nearestMatchingRail.wasHit = true;
             float oldTime = nearestMatchingRail.time;
             int oldIndex = nearestMatchingRail.railIndex;
             GameObject oldDecoration = nearestMatchingRail.decoration;
@@ -205,10 +204,11 @@ public class GameManager : MonoBehaviour {
             RailSet newRail = AddRail(oldIndex, BeatType.Normal);
             newRail.time = oldTime;
             newRail.decoration = oldDecoration;
+            newRail.wasHit = false;
             activeRails[nearestIndex] = newRail;
         }
         else {
-            RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
+            RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, audioManager.Time, out nearestTime);
             nearestRail.wasHit = true;
         }
         //---------------------------
@@ -249,7 +249,8 @@ public class GameManager : MonoBehaviour {
         GameObject newRail = pool.GetRail(railContainer);
         return new RailSet() {
             beatType = beatType,
-            rail = newRail
+            rail = newRail,
+            wasHit = false
         };
     }
 
