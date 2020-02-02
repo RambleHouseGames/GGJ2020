@@ -17,13 +17,11 @@ public class ResultAction : MonoBehaviour
     int OkScore = 0;
     int MissScore = 0;
     public Text RankScore;
+    public Text RankScore1;
     public Text TotalScoreText;
     public Text GreatScoreText;
     public Text OkScoreText;
     public Text MissScoreText;
-    /*public Text[] TotalScoreRank = new Text [5];
-    public Text[] HitScore = new Text[5];
-    public Text[] MissScore = new Text[5];*/
     public int Score = 0;
     public int Score1 = 0;
     public int Score2 = 0;
@@ -37,12 +35,6 @@ public class ResultAction : MonoBehaviour
         Score2 = SessionInfo.okCount;
         Score3 = SessionInfo.missCount;
 
-        //backToTitle = GameObject.Find("Button1");
-        //backToTitle.SetActive(false);
-        //Enter an arbutrary name
-        //PlayerName = PlayerName.GetComponent<InputField>();
-        //PlayerNameTextN = PlayerNameTextN.GetComponent<Text>();
-
         //Score Display
         TotalScore = Score;
         GreatScore = Score1;
@@ -53,36 +45,41 @@ public class ResultAction : MonoBehaviour
         OkScoreText.text = "" + OkScore;
         MissScoreText.text = "" + MissScore;
 
-        //for (int idx = 0; idx < 5; idx++) {
-        //TotalScoreRank[idx].text = Score;
-        //HitScore[idx].text = Score1;
-        //MissScore[idx].text = Score2;
-        //if (PlayerPrefs.GetFloat("R" + idx) >= float.MaxValue) {
-        //    txtRank[idx].text = "_.__s";
-        //} else {
-        //    txtRank[idx].text = PlayerPrefs.GetFloat("R" + idx).ToString("f2") + "s";
-        //}
-        //}
-
-        if (TotalScore >= 0 && TotalScore <= 100)
+        if (TotalScore >= 0 && TotalScore <= 3000)
         {
             RankScore.text = "D";
+            RankScore.color = new Color(0f / 255f, 0f / 255f, 0f / 255f);
+            RankScore1.color = new Color(0f / 255f, 0f / 255f, 0f / 255f);
         }
-        else if (TotalScore >= 101 && TotalScore <= 500)
+        else if (TotalScore >= 3001 && TotalScore <= 7000)
         {
             RankScore.text = "C";
+            RankScore.color = new Color(50f / 255f, 60f / 255f, 230f / 255f);
+            RankScore1.color = new Color(50f / 255f, 60f / 255f, 230f / 255f);
         }
-        else if (TotalScore >= 501 && TotalScore <= 1000)
+        else if (TotalScore >= 7001 && TotalScore <= 10000)
         {
             RankScore.text = "B";
+            RankScore.color = new Color(5f / 255f, 150f / 255f, 15f / 255f);
+            RankScore1.color = new Color(5f / 255f, 150f / 255f, 15f / 255f);
         }
-        else if (TotalScore >= 1001 && TotalScore <= 2000)
+        else if (TotalScore >= 10001 && TotalScore <= 12000)
         {
             RankScore.text = "A";
+            RankScore.color = new Color(255f / 255f, 0f / 255f, 0f / 255f);
+            RankScore1.color = new Color(255f / 255f, 0f / 255f, 0f / 255f);
         }
-        else if (TotalScore >= 2001)
+        else if (TotalScore >= 12001 && TotalScore <= 13000)
         {
             RankScore.text = "S";
+            RankScore.color = new Color(230f / 255f, 210f / 255f, 0f / 255f);
+            RankScore1.color = new Color(230f / 255f, 210f / 255f, 0f / 255f);
+        }
+        else if (TotalScore >= 13001)
+        {
+            RankScore.text = "SS";
+            RankScore.color = new Color(255f / 255f, 255f / 255f, 0.0f / 255f);
+            RankScore1.color = new Color(255f / 255f, 255f / 255f, 0.0f / 255f);
         }
     }
 
