@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
 
     public HammerManager hammerManager;
     public TerrainManager terrainManager;
+    public ReadyGoManager readyGoManager;
     public Transform cameraT;
     private Vector3 cameraStartPos;
 
@@ -79,8 +80,9 @@ public class GameManager : MonoBehaviour {
             activeRails.Add(AddRail(railIndex, GetBeatOfCurrentSong(railIndex)));
             railIndex++;
         }
-        mainSource.PlayDelayed(0.9f);
-        yield return new WaitForSeconds(1f);
+        readyGoManager.ShowReadyGo(3f);
+        mainSource.PlayDelayed(2.9f);
+        yield return new WaitForSeconds(3f);
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
         mainSource.time = 0f;
 #endif
@@ -117,7 +119,7 @@ public class GameManager : MonoBehaviour {
                 Vector3 endScale = Vector3.one;
                 decT.localScale = startScale;
                 this.CreateAnimationRoutine(
-                    1f,
+                    0.333f,
                     delegate (float progress) {
                         decT.localScale = Vector3.Lerp(startScale, endScale, progress);
                     }
@@ -267,6 +269,7 @@ public class GameManager : MonoBehaviour {
     private Coroutine exitRoutine = null;
     private void GoToResultScreen() {
         if (exitRoutine == null) {
+            fadeImage.gameObject.SetActive(true);
             Color startColor = fadeImage.color;
             Color endColor = Color.white;
             exitRoutine = this.CreateAnimationRoutine(
