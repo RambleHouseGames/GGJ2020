@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
     public Image fadeImage;
 
     public HammerManager hammerManager;
+    public TerrainManager terrainManager;
     public Transform cameraT;
     public HitTypeUI hitTypeUI;
     public Text scoreText;
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour {
     private float startTime;
     private const float PERFECT_DISTANCE = 0.09f;
     private const float GOOD_DISTANCE = 0.2f;
-    private const int RAIL_LENGTH = 45;
+    public const int RAIL_LENGTH = 45;
     private const int ON_BEAT_TIE_INDEX = 2;
     private const float BPM = 720;
     private const float BEATS_PER_SECOND = BPM / 60f;
@@ -98,13 +99,15 @@ public class GameManager : MonoBehaviour {
         newRail.railIndex = index;
         Vector3 pos = GetRailPosition(index);
         newRail.rail.transform.position = pos;
+
         if (Random.Range(0f, 1f) > 0.88f) {
             GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
             newRail.decoration = newDecoration;
             float x = Random.Range(-5f, 5f);
             x += (x > 0) ? 2f : -2f;
             Transform decT = newDecoration.transform;
-            decT.position = pos.SetX(x);
+            decT.position = new Vector3(x, -1.1f, pos.z);
+           
             if (index > RAIL_LENGTH) {
                 Vector3 startScale = Vector3.zero;
                 Vector3 endScale = Vector3.one;
@@ -148,6 +151,7 @@ public class GameManager : MonoBehaviour {
                 activeRails.Add(newRail);
 
                 railIndex++;
+                terrainManager.HandleRailIndex(railIndex);
 
                 timeSinceLastRail += SECONDS_PER_BEAT;
             }
