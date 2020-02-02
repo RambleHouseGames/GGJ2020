@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 1, g: 0.97129184, b: 0.93301433, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_FogDensity: 0.04
+  m_LinearFogStart: 20
+  m_LinearFogEnd: 60
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -1095,7 +1095,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 250
   field of view: 50
   orthographic: 0
   orthographic size: 5
@@ -1548,6 +1548,7 @@ MonoBehaviour:
   song1: {fileID: 4900000, guid: 14d36c494427f4a7083cda95021a7413, type: 3}
   fadeImage: {fileID: 1581971392}
   hammerManager: {fileID: 83411839}
+  terrainManager: {fileID: 722202646}
   cameraT: {fileID: 533266856}
   hitTypeUI: {fileID: 1182779990}
   scoreText: {fileID: 1540001223}
