@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public RailPool rightRailPool;
     public Transform railContainer;
     public GameObject[] decorations;
+    public GameObject fencePrefab;
 
     public AudioSource mainSource;
     public TextAsset song1;
@@ -106,25 +107,20 @@ public class GameManager : MonoBehaviour {
         Vector3 pos = GetRailPosition(index);
         newRail.rail.transform.position = pos;
 
-        if (Random.Range(0f, 1f) > 0.88f) {
+        if (Random.Range(0f, 1f) > 0.9f) {
             GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
             newRail.decoration = newDecoration;
             float x = Random.Range(-5f, 5f);
             x += (x > 0) ? 3f : -3f;
             Transform decT = newDecoration.transform;
             decT.position = new Vector3(x, 0, pos.z);
+            decT.localEulerAngles = new Vector3(0, Random.Range(0, 360), 0);
            
-            if (index > RAIL_LENGTH) {
-                Vector3 startScale = Vector3.zero;
-                Vector3 endScale = Vector3.one;
-                decT.localScale = startScale;
-                this.CreateAnimationRoutine(
-                    0.333f,
-                    delegate (float progress) {
-                        decT.localScale = Vector3.Lerp(startScale, endScale, progress);
-                    }
-                );
-            }
+        } else if (Random.Range(0f, 1f) > 0.92f) {
+            GameObject newFence = Instantiate(fencePrefab);
+            newRail.decoration = newFence;
+            float x = Random.Range(0f, 1f) > 0.5f ? 3.2f : -3.2f;
+            newFence.transform.position = new Vector3(x, 0, pos.z);
         }
         return newRail;
     }
