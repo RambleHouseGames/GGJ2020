@@ -51,7 +51,7 @@ public class ResultAction : MonoBehaviour
             RankScore.color = new Color(0f / 255f, 0f / 255f, 0f / 255f);
             RankScore1.color = new Color(0f / 255f, 0f / 255f, 0f / 255f);
         }
-        else if (TotalScore >= 4001 && TotalScore <= 7000)
+        else if (TotalScore >= 3001 && TotalScore <= 7000)
         {
             RankScore.text = "C";
             RankScore.color = new Color(50f / 255f, 60f / 255f, 230f / 255f);
