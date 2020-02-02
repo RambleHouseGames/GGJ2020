@@ -189,7 +189,6 @@ public class GameManager : MonoBehaviour {
         hitTypeUI.ShowHit(hitType, left);
         hammerManager.HitWithHammer(left);
 
-        Transform tr;   //YUUKI
         if (hitType != HitType.Miss) {
             nearestMatchingRail.wasHit = true;
             float oldTime = nearestMatchingRail.time;
@@ -201,19 +200,20 @@ public class GameManager : MonoBehaviour {
             newRail.time = oldTime;
             newRail.decoration = oldDecoration;
             activeRails[nearestIndex] = newRail;
-            
-            RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
-            tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI
         }
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            RailSection section = nearestMatchingRail.rail.GetComponent<RailSection>();
-            tr = left ? section.leftHitPosition : section.rightHitPosition;   //YUUKI
         }
-        VFXManager.Instance.RequestHitEffect(tr, hitType); //YUUKI
+        //---------------------------
+        // request hit effect (YUUKI)
+        Transform hammer;
+        hammer = left ? hammerManager.leftHammer : hammerManager.rightHammer;
+        Transform tr = hammer.GetComponent<Hammer>().HitPosition;
+        VFXManager.Instance.RequestHitEffect(tr, hitType);
+        //---------------------------
     }
-  
+
     private void HandleHitType(HitType hitType) {
         switch (hitType) {
             case HitType.Great:
