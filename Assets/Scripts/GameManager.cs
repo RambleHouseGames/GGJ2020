@@ -81,6 +81,9 @@ public class GameManager : MonoBehaviour {
         }
         mainSource.PlayDelayed(0.9f);
         yield return new WaitForSeconds(1f);
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        mainSource.time = 0f;
+#endif
 
         startTime = mainSource.time;
         gameStarted = true;
