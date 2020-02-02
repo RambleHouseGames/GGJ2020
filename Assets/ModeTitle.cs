@@ -70,10 +70,15 @@ public class ModeTitle : MonoBehaviour
         };
         Action update = () =>
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 _stateMachine.ChangeState(State.ToGame);
             }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _stateMachine.ChangeState(State.ToGame);
+            }
+
         };
         Action<State> exit = (next) => { };
         _stateMachine.AddState(state, enter, update, exit);
