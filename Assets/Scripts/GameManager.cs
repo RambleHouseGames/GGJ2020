@@ -98,13 +98,15 @@ public class GameManager : MonoBehaviour {
         newRail.railIndex = index;
         Vector3 pos = GetRailPosition(index);
         newRail.rail.transform.position = pos;
+
         if (Random.Range(0f, 1f) > 0.88f) {
             GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
             newRail.decoration = newDecoration;
             float x = Random.Range(-5f, 5f);
             x += (x > 0) ? 2f : -2f;
             Transform decT = newDecoration.transform;
-            decT.position = pos.SetX(x);
+            decT.position = new Vector3(x, -1.1f, pos.z);
+           
             if (index > RAIL_LENGTH) {
                 Vector3 startScale = Vector3.zero;
                 Vector3 endScale = Vector3.one;
