@@ -3,6 +3,7 @@
     public static int greatCount = 0;
     public static int okCount = 0;
     public static int missCount = 0;
+    public static int stageNum;
 
     public static void Reset() {
         score = 0;

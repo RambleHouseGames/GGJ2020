@@ -10,6 +10,8 @@ public class ModeTitle : MonoBehaviour
     [SerializeField]
     UIFlash _pressZKey;
 
+    private int clicked;
+
     enum State
     {
         Init,
@@ -29,6 +31,11 @@ public class ModeTitle : MonoBehaviour
     private void Update()
     {
         _stateMachine.UpdateState();
+    }
+
+    public void Clicked(int num)
+    {
+        clicked = num;
     }
 
     private void SetupState()
@@ -70,11 +77,11 @@ public class ModeTitle : MonoBehaviour
         };
         Action update = () =>
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (clicked == 1)
             {
                 _stateMachine.ChangeState(State.ToGame);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (clicked == 2)
             {
                 _stateMachine.ChangeState(State.ToGame);
             }
