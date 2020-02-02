@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     public TerrainManager terrainManager;
     public ReadyGoManager readyGoManager;
     public AudioManager audioManager;
+    public Transform headT;
     public Transform cameraT;
     private Vector3 cameraStartPos;
 
@@ -71,11 +72,11 @@ public class GameManager : MonoBehaviour {
     private const float SECONDS_PER_BEAT = 1f / BEATS_PER_SECOND;
     private int railIndex = 0;
     IEnumerator Start() {
-        cameraStartPos = cameraT.position;
+        cameraStartPos = headT.position;
         Health = 100;
         Score = 0;
         SessionInfo.Reset();
-        TextAsset notes = audioManager.PlaySong(SessionInfo.stageNum == 0, 2.9f);
+        TextAsset notes = audioManager.SetupSong(SessionInfo.stageNum == 0);
 
         startTime = audioManager.Time;
         currentSong = SongParser.ParseSong(notes);
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour {
             activeRails.Add(AddRail(railIndex, GetBeatOfCurrentSong(railIndex)));
             railIndex++;
         }
-
+        audioManager.PlaySong(2.9f);
         readyGoManager.ShowReadyGo(3f);
         yield return new WaitForSeconds(3f);
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
@@ -95,7 +96,6 @@ public class GameManager : MonoBehaviour {
             float centerTime = startTime + GetTimeForIndex(i);
             activeRails[i].time = centerTime;
         }
-        yield return new WaitForSeconds(1f);
     }
 
     private static float GetTimeForIndex(int i) {
@@ -138,12 +138,12 @@ public class GameManager : MonoBehaviour {
                 if (railToRemove.beatType == BeatType.Normal) {
                     if (railToRemove.wasHit) {
                         Health -= 5;
+                        cameraT.gameObject.GetComponent<ShakeCamera>().RequestCameraShake();
                     }
                 } else {
                     if (!railToRemove.wasHit) {
                         Health -= 5;
-                        GameObject cam = Camera.main.gameObject;
-                        cam.GetComponent<ShakeCamera>().RequestCameraShake();
+                        cameraT.gameObject.GetComponent<ShakeCamera>().RequestCameraShake();
                     }
                 }
 
@@ -211,11 +211,6 @@ public class GameManager : MonoBehaviour {
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, Time.time, out nearestTime);
             nearestRail.wasHit = true;
-            //---------------------------
-            // SHAKE THE CAMERA (YUUKI)
-            GameObject cam = Camera.main.gameObject;
-            cam.GetComponent<ShakeCamera>().RequestCameraShake();
-            //---------------------------
         }
         //---------------------------
         // request hit effect (YUUKI)
@@ -246,7 +241,7 @@ public class GameManager : MonoBehaviour {
 
     private void LateUpdate() {
         if (gameStarted) {
-            cameraT.position = cameraStartPos + new Vector3(0, 0, BEATS_PER_SECOND * (audioManager.Time - 0.1f));
+            headT.position = cameraStartPos + new Vector3(0, 0, BEATS_PER_SECOND * (audioManager.Time - 0.1f));
         }
     }
 
