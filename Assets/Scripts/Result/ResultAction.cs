@@ -93,6 +93,10 @@ public class ResultAction : MonoBehaviour
 
     public void Submitname()
     {
+        if (string.IsNullOrEmpty(PlayerName.text))
+        {
+            PlayerName.text = "no name";
+        }
         PlayerPrefs.SetInt("Score", Score);
         PlayerPrefs.SetString("Name", PlayerNameTextN.text);
         PlayerPrefs.Save();
