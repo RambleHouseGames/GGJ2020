@@ -77,20 +77,19 @@ public class GameManager : MonoBehaviour {
         Score = 0;
         SessionInfo.Reset();
         TextAsset notes = audioManager.SetupSong(SessionInfo.stageNum == 0);
-
-        startTime = audioManager.Time;
         currentSong = SongParser.ParseSong(notes);
         for (int i = 0; i < RAIL_LENGTH; i++) {
             activeRails.Add(AddRail(railIndex, GetBeatOfCurrentSong(railIndex)));
             railIndex++;
         }
-        audioManager.PlaySong(2.9f);
         readyGoManager.ShowReadyGo(3f);
+        audioManager.PlaySong(2.9f);
         yield return new WaitForSeconds(3f);
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
         audioManager.Time = 0f;
 #endif
 
+        startTime = audioManager.Time;
         gameStarted = true;
         for (int i = ON_BEAT_TIE_INDEX; i < activeRails.Count; i++) {
             float centerTime = startTime + GetTimeForIndex(i);
