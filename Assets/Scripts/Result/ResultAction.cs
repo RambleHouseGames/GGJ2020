@@ -9,7 +9,7 @@ public class ResultAction : MonoBehaviour
     //Enter an arbutrary name
     public InputField PlayerName;
     public Text PlayerNameTextN;
-    GameObject buttonA;
+    public GameObject backToTitle;
 
     //Score Display
     int TotalScore = 0;
@@ -37,8 +37,8 @@ public class ResultAction : MonoBehaviour
         Score2 = SessionInfo.okCount;
         Score3 = SessionInfo.missCount;
 
-        buttonA = GameObject.Find("Button1");
-        buttonA.SetActive(false);
+        //backToTitle = GameObject.Find("Button1");
+        backToTitle.SetActive(false);
         //Enter an arbutrary name
         //PlayerName = PlayerName.GetComponent<InputField>();
         //PlayerNameTextN = PlayerNameTextN.GetComponent<Text>();
@@ -94,13 +94,13 @@ public class ResultAction : MonoBehaviour
 
     public void Submitname()
     {
-        PlayerName.gameObject.SetActive(false);
-        buttonA.SetActive(true);
+        //PlayerName.gameObject.SetActive(false);
+        backToTitle.SetActive(true);
     }
 
     public void Titlename()
     {
-        buttonA.SetActive(false);
+        backToTitle.SetActive(false);
         PlayerPrefs.SetInt("Score", Score);
         PlayerPrefs.SetString("Name", PlayerNameTextN.text);
         PlayerPrefs.Save();
