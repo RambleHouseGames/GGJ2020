@@ -142,7 +142,7 @@ public class ScoreManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             // 保存データの全てを削除する
-            PlayerPrefs.DeleteAll();
+            //PlayerPrefs.DeleteAll();
         }
     }
 
