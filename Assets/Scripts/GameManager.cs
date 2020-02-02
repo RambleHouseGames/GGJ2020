@@ -218,6 +218,8 @@ public class GameManager : MonoBehaviour {
         Transform hammer;
         hammer = left ? hammerManager.leftHammer : hammerManager.rightHammer;
         Transform tr = hammer.GetComponent<Hammer>().HitPosition;
+        Quaternion rot = left ? Quaternion.Euler(70.0f, -30.0f, 0.0f) : Quaternion.Euler(70.0f, 30.0f, 0.0f);
+        tr.rotation = rot;
         VFXManager.Instance.RequestHitEffect(tr, hitType);
         //---------------------------
     }
