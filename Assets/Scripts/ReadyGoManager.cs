@@ -31,7 +31,7 @@ public class ReadyGoManager : MonoBehaviour {
         );
     }
 
-    private const float SWITCH_ANIM_DURATION = 0.333f;
+    private const float SWITCH_ANIM_DURATION = 0.2f;
     private const float SWITCH_HALF_DURATION = SWITCH_ANIM_DURATION/2f;
     private void Step2(float length, float startTime) {
         Vector2 startSize = readyImageT.sizeDelta;
@@ -63,7 +63,7 @@ public class ReadyGoManager : MonoBehaviour {
     }
 
     private IEnumerator WaitAndDelete() {
-        yield return new WaitForSeconds(0.666f);
+        yield return new WaitForSeconds(1f);
         Vector2 goStartSize = goImageT.sizeDelta;
         Vector2 goEndSize = Vector2.zero;
         this.CreateAnimationRoutine(

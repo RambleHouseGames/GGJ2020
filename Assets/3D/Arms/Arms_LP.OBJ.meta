@@ -3,7 +3,17 @@ guid: 966be31d13d9a12448bfb269a6710f59
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ArmsMat
+    second: {fileID: 2100000, guid: 54b9d159369b08445a3650d95acd2f58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GlovesMat
+    second: {fileID: 2100000, guid: 54b9d159369b08445a3650d95acd2f58, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

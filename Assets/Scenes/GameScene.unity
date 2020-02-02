@@ -1743,7 +1743,9 @@ MonoBehaviour:
   railContainer: {fileID: 1614385405}
   decorations:
   - {fileID: 3151171602578746178, guid: 2c2a84413b9b847b498ecebaa8cbfdef, type: 3}
-  - {fileID: 6258582919103172498, guid: 86e38a5f74d594c41bc54b56757ffcc5, type: 3}
+  - {fileID: 2264281291132118343, guid: d3258b3c773ac46ee9cc202e6df8e0c7, type: 3}
+  fencePrefab: {fileID: 6258582919103172498, guid: 86e38a5f74d594c41bc54b56757ffcc5,
+    type: 3}
   mainSource: {fileID: 852444860}
   song1: {fileID: 4900000, guid: 14d36c494427f4a7083cda95021a7413, type: 3}
   fadeImage: {fileID: 1581971392}
