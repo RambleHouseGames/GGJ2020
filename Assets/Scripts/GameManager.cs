@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour {
     public GameObject[] decorations;
     public GameObject fencePrefab;
 
-    public AudioSource mainSource;
-    public TextAsset song1;
     private BeatType[] currentSong;
     private BeatType GetBeatOfCurrentSong(int beatIndex) {
         if(beatIndex < currentSong.Length) {
@@ -30,6 +28,7 @@ public class GameManager : MonoBehaviour {
     public HammerManager hammerManager;
     public TerrainManager terrainManager;
     public ReadyGoManager readyGoManager;
+    public AudioManager audioManager;
     public Transform cameraT;
     private Vector3 cameraStartPos;
 
@@ -76,19 +75,21 @@ public class GameManager : MonoBehaviour {
         Health = 100;
         Score = 0;
         SessionInfo.Reset();
-        currentSong = SongParser.ParseSong(song1);
+        TextAsset notes = audioManager.PlaySong(SessionInfo.stageNum == 0, 2.9f);
+
+        startTime = audioManager.Time;
+        currentSong = SongParser.ParseSong(notes);
         for (int i = 0; i < RAIL_LENGTH; i++) {
             activeRails.Add(AddRail(railIndex, GetBeatOfCurrentSong(railIndex)));
             railIndex++;
         }
+
         readyGoManager.ShowReadyGo(3f);
-        mainSource.PlayDelayed(2.9f);
         yield return new WaitForSeconds(3f);
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        mainSource.time = 0f;
+        audioManager.Time = 0f;
 #endif
 
-        startTime = mainSource.time;
         gameStarted = true;
         for (int i = ON_BEAT_TIE_INDEX; i < activeRails.Count; i++) {
             float centerTime = startTime + GetTimeForIndex(i);
@@ -187,7 +188,7 @@ public class GameManager : MonoBehaviour {
 
     private void HandleHit(bool left) {
         BeatType beatType = left ? BeatType.LeftBend : BeatType.RightBend;
-        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, mainSource.time, beatType, out float nearestTime, out int nearestIndex);
+        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, audioManager.Time, beatType, out float nearestTime, out int nearestIndex);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, left);
@@ -238,7 +239,7 @@ public class GameManager : MonoBehaviour {
 
     private void LateUpdate() {
         if (gameStarted) {
-            cameraT.position = cameraStartPos + new Vector3(0, 0, BEATS_PER_SECOND * (mainSource.time-0.1f));
+            cameraT.position = cameraStartPos + new Vector3(0, 0, BEATS_PER_SECOND * (audioManager.Time - 0.1f));
         }
     }
 
