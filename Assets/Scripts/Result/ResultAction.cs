@@ -38,7 +38,7 @@ public class ResultAction : MonoBehaviour
         Score3 = SessionInfo.missCount;
 
         //backToTitle = GameObject.Find("Button1");
-        backToTitle.SetActive(false);
+        //backToTitle.SetActive(false);
         //Enter an arbutrary name
         //PlayerName = PlayerName.GetComponent<InputField>();
         //PlayerNameTextN = PlayerNameTextN.GetComponent<Text>();
@@ -95,12 +95,12 @@ public class ResultAction : MonoBehaviour
     public void Submitname()
     {
         //PlayerName.gameObject.SetActive(false);
-        backToTitle.SetActive(true);
+        //backToTitle.SetActive(true);
     }
 
     public void Titlename()
     {
-        backToTitle.SetActive(false);
+        //backToTitle.SetActive(false);
         PlayerPrefs.SetInt("Score", Score);
         PlayerPrefs.SetString("Name", PlayerNameTextN.text);
         PlayerPrefs.Save();
