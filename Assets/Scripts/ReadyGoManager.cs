@@ -8,6 +8,8 @@ public class ReadyGoManager : MonoBehaviour {
     private Vector2 readyFullSize;
     private Vector2 goFullSize;
 
+    public AudioSource hornSound;
+
     private void Awake() {
         readyFullSize = readyImageT.sizeDelta;
         goFullSize = goImageT.sizeDelta;
@@ -34,6 +36,7 @@ public class ReadyGoManager : MonoBehaviour {
     private const float SWITCH_ANIM_DURATION = 0.2f;
     private const float SWITCH_HALF_DURATION = SWITCH_ANIM_DURATION/2f;
     private void Step2(float length, float startTime) {
+        hornSound.Play();
         Vector2 startSize = readyImageT.sizeDelta;
         Vector2 endSize = startSize * 1.09f;
         float elapsedTime = Time.time - startTime;

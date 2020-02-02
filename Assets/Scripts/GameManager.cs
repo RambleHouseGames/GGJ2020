@@ -134,12 +134,7 @@ public class GameManager : MonoBehaviour {
         if (gameStarted) {
             if (timeSinceLastRail <= 0) {
                 RailSet railToRemove = activeRails[0];
-                if (railToRemove.beatType == BeatType.Normal) {
-                    if (railToRemove.wasHit) {
-                        Health -= 5;
-                        cameraT.gameObject.GetComponent<ShakeCamera>().RequestCameraShake();
-                    }
-                } else {
+                if (railToRemove.beatType != BeatType.Normal) {
                     if (!railToRemove.wasHit) {
                         Health -= 5;
                         cameraT.gameObject.GetComponent<ShakeCamera>().RequestCameraShake();
@@ -210,6 +205,8 @@ public class GameManager : MonoBehaviour {
         else {
             RailSet nearestRail = RailSet.GetNearestRailSet(activeRails, audioManager.Time, out nearestTime);
             nearestRail.wasHit = true;
+            Health -= 5;
+            cameraT.gameObject.GetComponent<ShakeCamera>().RequestCameraShake();
         }
         //---------------------------
         // request hit effect (YUUKI)
