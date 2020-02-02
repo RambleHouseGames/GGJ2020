@@ -18,10 +18,11 @@ public class StartButton : MonoBehaviour
         
     }
 
-    public void OnClick()
+    public void Clicked(int num)
     {
         //Debug.Log("clicked");
         //Load game scene
         SceneManager.LoadScene("GameScene");
+        SessionInfo.stageNum = num;
     }
 }
