@@ -38,13 +38,13 @@ public class HitTypeUI : MonoBehaviour {
         while (true) {
             t.localPosition += new Vector3(
                 xSpeed * Time.deltaTime,
-                0.666f * Time.deltaTime,
+                0* Time.deltaTime,
                 zSpeed * Time.deltaTime
             );
             zSpeed -= 10 * Time.deltaTime;
             yield return null;
             if(t.localPosition.z < -2) {
-                //Destroy(hitUI);
+                Destroy(hitUI);
                 yield break;
             }
         }

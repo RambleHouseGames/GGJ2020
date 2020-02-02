@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
     public HammerManager hammerManager;
     public TerrainManager terrainManager;
     public Transform cameraT;
+    private Vector3 cameraStartPos;
+
     public HitTypeUI hitTypeUI;
     public Text scoreText;
     private int Score {
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour {
     private const float SECONDS_PER_BEAT = 1f / BEATS_PER_SECOND;
     private int railIndex = 0;
     IEnumerator Start() {
+        cameraStartPos = cameraT.position;
         Health = 100;
         Score = 0;
         SessionInfo.Reset();
@@ -78,10 +81,8 @@ public class GameManager : MonoBehaviour {
         }
         mainSource.PlayDelayed(0.9f);
         yield return new WaitForSeconds(1f);
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        mainSource.time = 0f;
-#endif
-        startTime = Time.time;
+
+        startTime = mainSource.time;
         gameStarted = true;
         for (int i = ON_BEAT_TIE_INDEX; i < activeRails.Count; i++) {
             float centerTime = startTime + GetTimeForIndex(i);
@@ -104,9 +105,9 @@ public class GameManager : MonoBehaviour {
             GameObject newDecoration = Instantiate(decorations[Random.Range(0, decorations.Length)]);
             newRail.decoration = newDecoration;
             float x = Random.Range(-5f, 5f);
-            x += (x > 0) ? 2f : -2f;
+            x += (x > 0) ? 3f : -3f;
             Transform decT = newDecoration.transform;
-            decT.position = new Vector3(x, -1.1f, pos.z);
+            decT.position = new Vector3(x, 0, pos.z);
            
             if (index > RAIL_LENGTH) {
                 Vector3 startScale = Vector3.zero;
@@ -185,7 +186,7 @@ public class GameManager : MonoBehaviour {
 
     private void HandleHit(bool left) {
         BeatType beatType = left ? BeatType.LeftBend : BeatType.RightBend;
-        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, Time.time, beatType, out float nearestTime, out int nearestIndex);
+        RailSet nearestMatchingRail = RailSet.GetNearestMatchingRailSet(activeRails, mainSource.time, beatType, out float nearestTime, out int nearestIndex);
         HitType hitType = HitTypeForTime(nearestTime);
         HandleHitType(hitType);
         hitTypeUI.ShowHit(hitType, left);
@@ -234,7 +235,7 @@ public class GameManager : MonoBehaviour {
 
     private void LateUpdate() {
         if (gameStarted) {
-            cameraT.position += new Vector3(0, 0, BEATS_PER_SECOND * Time.deltaTime);
+            cameraT.position = cameraStartPos + new Vector3(0, 0, BEATS_PER_SECOND * (mainSource.time-0.1f));
         }
     }
 
