@@ -22,7 +22,8 @@ public class StartButton : MonoBehaviour
     {
         //Debug.Log("clicked");
         //Load game scene
-        SceneManager.LoadScene("GameScene");
+        
         SessionInfo.stageNum = num;
+        SceneManager.LoadScene("GameScene");
     }
 }
