@@ -93,13 +93,10 @@ public class ResultAction : MonoBehaviour
 
     public void Submitname()
     {
-        //PlayerName.gameObject.SetActive(false);
-        //backToTitle.SetActive(true);
-
-        if (string.IsNullOrEmpty(PlayerName.text))
-        {
-            PlayerName.text = "no name";
-        }
+        PlayerPrefs.SetInt("Score", Score);
+        PlayerPrefs.SetString("Name", PlayerNameTextN.text);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("Title");
     }
 
     public void Titlename()
@@ -108,8 +105,6 @@ public class ResultAction : MonoBehaviour
         {
             PlayerName.text = "no name";
         }
-
-        //backToTitle.SetActive(false);
         PlayerPrefs.SetInt("Score", Score);
         PlayerPrefs.SetString("Name", PlayerNameTextN.text);
         PlayerPrefs.Save();
