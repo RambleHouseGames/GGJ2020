@@ -35,6 +35,8 @@ public class ResultAction : MonoBehaviour
         Score2 = SessionInfo.okCount;
         Score3 = SessionInfo.missCount;
 
+        //PlayerName.text = "no name";
+
         //Score Display
         TotalScore = Score;
         GreatScore = Score1;
@@ -93,10 +95,20 @@ public class ResultAction : MonoBehaviour
     {
         //PlayerName.gameObject.SetActive(false);
         //backToTitle.SetActive(true);
+
+        if (string.IsNullOrEmpty(PlayerName.text))
+        {
+            PlayerName.text = "no name";
+        }
     }
 
     public void Titlename()
     {
+        if (string.IsNullOrEmpty(PlayerName.text))
+        {
+            PlayerName.text = "no name";
+        }
+
         //backToTitle.SetActive(false);
         PlayerPrefs.SetInt("Score", Score);
         PlayerPrefs.SetString("Name", PlayerNameTextN.text);
